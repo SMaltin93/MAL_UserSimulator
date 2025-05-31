@@ -1,0 +1,151 @@
+#id: "org.mal-lang.coreLang"
+#version: "1.0.0"
+
+category User {
+    asset Start {
+        | active
+            -> stayActive,
+               login.authenticate,
+               publicContent.access
+        | stayActive
+
+            -> active
+    }
+
+    asset PublicContent {
+        | access
+      
+            -> stayAccess,
+               login.authenticate,
+               blog.visit,
+               search.visit
+
+        | stayAccess
+            -> access
+    }
+
+    asset LoginProcess {
+        | authenticate
+          
+            -> stayHere,
+               overview.visit,  
+               start.active     
+        | stayHere
+            -> authenticate
+    }
+
+    asset Overview {
+        | visit
+            
+            -> stayVisit,
+               watchList.visit,
+               tradingRelated.access,
+               account.access,
+               publicContent.access  
+        | stayVisit
+            -> visit
+    }
+
+    asset WatchList {
+        | visit
+            -> stayVisit,
+               overview.visit 
+        | stayVisit
+            -> visit
+    }
+
+    asset TradingRelated {
+        | access
+            -> stayAccess,
+               overview.visit
+        | stayAccess
+            -> access
+    }
+
+    asset Account {
+        | access 
+            -> stayAccess,
+               messages.read,
+               privateData.access,
+               overview.visit  
+        | stayAccess
+            -> access
+    }
+
+    asset Messages {
+        | read 
+            -> stayRead,
+               account.access,
+               overview.visit  
+        | stayRead
+            -> read
+        & privateMessages
+    }
+
+    asset PrivateData {
+        | access 
+            -> stayAccess,
+               account.access,
+               overview.visit 
+        | stayAccess
+            -> access
+        & dokument
+    }
+
+    asset Blog {
+        | visit
+            -> stayVisit,
+               publicContent.access,
+               overview.visit
+
+        | stayVisit
+            -> visit
+    }
+
+    asset Search {
+        | visit
+            -> stayVisit,
+               publicContent.access,
+               overview.visit
+
+        | stayVisit
+            -> visit
+    }
+}
+    
+associations {
+    Start [start] 1 <-- InitiatesFlow_Start_LoginProcess --> * [login] LoginProcess
+    Start [start] 1 <-- PublicAccess --> * [publicContent] PublicContent
+    
+    PublicContent [publicContent] 1 <-- InitiatesFlow --> * [login] LoginProcess
+
+    PublicContent [publicContent] 1 <-- VisitBlog --> * [blog] Blog
+    PublicContent [publicContent] 1 <-- SearchFunds --> * [search] Search
+    
+    LoginProcess [login] 1 <-- NavigatesToOverview --> * [overview] Overview
+    LoginProcess [login] 1 <-- FailurePath --> * [start] Start
+    
+    Overview [overview] 1 <-- TradingAccess --> * [tradingRelated] TradingRelated
+    Overview [overview] 1 <-- AccountAccess --> * [account] Account
+    Overview [overview] 1 <-- OpenWatchList --> * [watchList] WatchList
+    Overview [overview] 1 <-- ReturnToPublic --> * [publicContent] PublicContent
+    
+    WatchList [watchList] 1 <-- ReturnToOverview1 --> * [overview] Overview
+    TradingRelated [tradingRelated] 1 <-- ReturnToOverview2 --> * [overview] Overview
+    Account [account] 1 <-- ReturnToOverview3 --> * [overview] Overview
+    
+    Account [account] 1 <-- AccessMessages --> * [messages] Messages
+    Account [account] 1 <-- AccessPrivateData --> * [privateData] PrivateData
+    
+    Messages [messages] 1 <-- ReturnToAccount1 --> * [account] Account
+    PrivateData [privateData] 1 <-- ReturnToAccount2 --> * [account] Account
+
+    PrivateData [privateData] 1 <-- PrivateDataToOverview --> * [overview] Overview
+    
+    Messages [messages]  1 <-- MessagesDataToOverview --> * [overview] Overview
+
+    Blog [blog] 1 <-- BlogToOverview --> * [overview] Overview
+    
+    Search [search] 1 <-- SearchToOverview --> * [overview] Overview
+
+}
