@@ -1,0 +1,174 @@
+assets:
+  0:
+    associated_assets:
+      login:
+        2: LoginProcess:2
+      publicContent:
+        1: PublicContent:1
+      phishing:
+        11: Phishing:11
+    extras:
+      position:
+        x: -612.8078498293515
+        y: -804.4679180887373
+    name: Start:0
+    type: Start
+  1:
+    associated_assets:
+      blog:
+        9: Blog:9
+      search:
+        10: Search:10
+      start:
+        0: Start:0
+    extras:
+      position:
+        x: -897.0
+        y: -572.0
+    name: PublicContent:1
+    type: PublicContent
+  2:
+    associated_assets:
+      overview:
+        3: Overview:3
+      start:
+        0: Start:0
+    extras:
+      position:
+        x: -426.0
+        y: -560.0
+    name: LoginProcess:2
+    type: LoginProcess
+  3:
+    associated_assets:
+      account:
+        6: Account:6
+      blog:
+        9: Blog:9
+      login:
+        2: LoginProcess:2
+      messages:
+        7: Messages:7
+      privateData:
+        8: PrivateData:8
+      search:
+        10: Search:10
+      tradingRelated:
+        5: TradingRelated:5
+      watchList:
+        4: WatchList:4
+    extras:
+      position:
+        x: -810.7725255972697
+        y: -295.0556313993174
+    name: Overview:3
+    type: Overview
+  4:
+    associated_assets:
+      overview:
+        3: Overview:3
+    extras:
+      position:
+        x: -615.3296928327645
+        y: -83.22081911262799
+    name: WatchList:4
+    type: WatchList
+  5:
+    associated_assets:
+      overview:
+        3: Overview:3
+    extras:
+      position:
+        x: -970.9095563139932
+        y: -95.83003412969285
+    name: TradingRelated:5
+    type: TradingRelated
+  6:
+    associated_assets:
+      messages:
+        7: Messages:7
+      overview:
+        3: Overview:3
+      privateData:
+        8: PrivateData:8
+    extras:
+      position:
+        x: -293.79470989761097
+        y: -71.87252559726963
+    name: Account:6
+    type: Account
+  7:
+    associated_assets:
+      account:
+        6: Account:6
+      overview:
+        3: Overview:3
+    extras:
+      position:
+        x: -253.44522184300342
+        y: 69.35068259385666
+    name: Messages:7
+    type: Messages
+  8:
+    associated_assets:
+      account:
+        6: Account:6
+      overview:
+        3: Overview:3
+    extras:
+      position:
+        x: 107.17832764505118
+        y: 63.04607508532424
+    name: PrivateData:8
+    type: PrivateData
+  9:
+    associated_assets:
+      overview:
+        3: Overview:3
+      publicContent:
+        1: PublicContent:1
+    extras:
+      position:
+        x: -100.0
+        y: 0.0
+    name: Blog:9
+    type: Blog
+  10:
+    associated_assets:
+      overview:
+        3: Overview:3
+      publicContent:
+        1: PublicContent:1
+    extras:
+      position:
+        x: 100.0
+        y: 0.0
+    name: Search:10
+    type: Search
+  11:
+    associated_assets:
+      login:
+        2: LoginProcess:2
+      publicContent:
+        1: PublicContent:1
+    extras:
+      position:
+        x: 100.0
+        y: 0.0
+    name: Phishing:11
+    type: Phishing
+attackers:
+  9:
+    entry_points:
+      Start:0:
+        asset_id: 0
+        attack_steps:
+        - active
+    name: Attacker:9
+metadata:
+  MAL-Toolbox Version: 0.3.11
+  info: Created by the mal-toolbox model python module.
+  langID: org.mal-lang.coreLang
+  langVersion: 1.0.0
+  malVersion: 0.1.0-SNAPSHOT
+  name: userFlow
