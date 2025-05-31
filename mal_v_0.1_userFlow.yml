@@ -1,0 +1,146 @@
+assets:
+  0:
+    extras:
+      position:
+        x: -612.8078498293515
+        y: -804.4679180887373
+    name: Start:0
+    type: Start
+  1:
+    extras:
+      position:
+        x: -897.0
+        y: -572.0
+    name: PublicContent:1
+    type: PublicContent
+  2:
+    extras:
+      position:
+        x: -426.0
+        y: -560.0
+    name: LoginProcess:2
+    type: LoginProcess
+  3:
+    extras:
+      position:
+        x: -810.7725255972697
+        y: -295.0556313993174
+    name: Overview:3
+    type: Overview
+  4:
+    extras:
+      position:
+        x: -615.3296928327645
+        y: -83.22081911262799
+    name: WatchList:4
+    type: WatchList
+  5:
+    extras:
+      position:
+        x: -970.9095563139932
+        y: -95.83003412969285
+    name: TradingRelated:5
+    type: TradingRelated
+  6:
+    extras:
+      position:
+        x: -293.79470989761097
+        y: -71.87252559726963
+    name: Account:6
+    type: Account
+  7:
+    extras:
+      position:
+        x: -253.44522184300342
+        y: 69.35068259385666
+    name: Messages:7
+    type: Messages
+  8:
+    extras:
+      position:
+        x: 107.17832764505118
+        y: 63.04607508532424
+    name: PrivateData:8
+    type: PrivateData
+  9:
+    extras:
+      position:
+        x: -100.0
+        y: 0.0
+    name: Blog:9
+    type: Blog
+  10:
+    extras:
+      position:
+        x: 100.0
+        y: 0.0
+    name: Search:10
+    type: Search
+associations:
+- PublicAccess:
+    publicContent:
+    - 1
+    start:
+    - 0
+- InitiatesFlow_Start_LoginProcess:
+    login:
+    - 2
+    start:
+    - 0
+- NavigatesToOverview:
+    login:
+    - 2
+    overview:
+    - 3
+- TradingAccess:
+    overview:
+    - 3
+    tradingRelated:
+    - 5
+- OpenWatchList:
+    overview:
+    - 3
+    watchList:
+    - 4
+- AccountAccess:
+    account:
+    - 6
+    overview:
+    - 3
+- AccessMessages:
+    account:
+    - 6
+    messages:
+    - 7
+- AccessPrivateData:
+    account:
+    - 6
+    privateData:
+    - 8
+- VisitBlog:
+    publicContent:
+    - 1
+    blog:
+    - 9
+- SearchFunds:
+    publicContent:
+    - 1
+    search:
+    - 10
+ 
+
+attackers:
+  9:
+    entry_points: 
+      Start:0:
+        asset_id: 0
+        attack_steps:
+        - active
+    name: Attacker:9
+metadata:
+  MAL-Toolbox Version: 0.1.0
+  info: Created by the mal-toolbox model python module.
+  langID: org.mal-lang.coreLang
+  langVersion: 1.0.0
+  malVersion: 0.1.0-SNAPSHOT
+  name: userFlow
