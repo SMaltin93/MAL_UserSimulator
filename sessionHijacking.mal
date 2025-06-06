@@ -1,0 +1,56 @@
+#id: "org.mal-lang.coreLang"
+#version: "1.0.0"
+
+category User {
+
+     asset Start {
+        | active
+            -> login.authenticate,
+               thirdParty.sessionHijacking,
+               publicContent.access
+    }
+
+    asset LoginProcess {
+        | authenticate
+            -> auth.correctPassword,
+               publicContent.access,
+               backendServer.privateEndPoint 
+    }
+
+    asset PublicContent {
+        | access
+            -> stayAccess
+        & stayAccess
+    }
+
+    asset ThirdParty  {
+        | sessionHijacking
+            -> backendServer.privateEndPoint
+    }
+}
+
+category System {
+    asset AuthServer {
+        | correctPassword
+        ! user_Start (LoginProcess enterCredentials) syslog [1]
+    }
+    asset BackendServer {
+        | privateEndPoint
+        ! legitimateAccess (LoginProcess legUser) syslog [1]
+        ! suspiciousAccess (ThirdParty useStolenToken) syslog [1]
+    }
+}
+
+associations {
+    Start [start] 1 <-- startLogin --> * [login] LoginProcess
+    Start [start] 1 <-- GoToThirdParty --> * [thirdParty] ThirdParty
+
+    LoginProcess [login] 1 <-- acessPublic --> * [publicContent] PublicContent
+    LoginProcess [login] 1 <-- accessPrivate --> * [backendServer] BackendServer
+    LoginProcess [login] 1 <-- authRequest --> 1 [auth] AuthServer
+
+    ThirdParty [thirdParty] 1 <-- accessPrivateToken --> * [backendServer] BackendServer
+    
+    Start [start] 1 <-- startPublic --> * [publicContent] PublicContent
+
+}
