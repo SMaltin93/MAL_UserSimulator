@@ -1,0 +1,79 @@
+assets:
+  0:
+    name: UserStart
+    type: Start
+  1:
+    name: LoginFlow
+    type: LoginProcess
+  2:
+    name: AuthServerInstance
+    type: AuthServer
+  3:
+    name: ThirdPartyService
+    type: ThirdParty
+  4:
+    name: PublicContentSection
+    type: PublicContent
+  5:
+    name: BackendServerInstance
+    type: BackendServer
+
+associations:
+  - startLogin:
+      start:
+        - 0   # Start
+      login:
+        - 1   # LoginProcess
+
+  - GoToThirdParty:
+      start:
+        - 0   # Start
+      thirdParty:
+        - 3   
+
+  - acessPublic:
+      login:
+        - 1   # LoginProcess
+      publicContent:
+        - 4   # PublicContent
+
+  - accessPrivate:
+      login:
+        - 1   # LoginProcess
+      backendServer:
+        - 5  # PrivateData
+
+  - authRequest:
+      login:
+        - 1   # LoginProcess
+      auth:
+        - 2   # AuthServer
+
+  - accessPrivateToken:
+      thirdParty:
+        - 3   
+      backendServer:
+        - 5   
+
+  - startPublic:
+      start:
+        - 0   
+      publicContent:
+        - 4   # PublicContent
+
+
+
+attackers:
+  0:
+    name: BreadthFirstAttacker
+    class: malsim.agents.searchers:BreadthFirstAttacker
+    entry_points:
+      UserStart: {asset_id: 0, attack_steps: [active]}
+
+metadata:
+  MAL-Toolbox Version: 0.1.0
+  info: Created for simulating user behavior with sessionHijacking.
+  langID: org.mal-lang.coreLang
+  langVersion: 1.0.0
+  malVersion: 0.1.0-SNAPSHOT
+  name: sessionHijacking-login-model
